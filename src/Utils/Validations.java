@@ -1,12 +1,23 @@
 package Utils;
 
+import Model.Customer;
+
+import java.util.List;
+
 public class Validations {
 
-    public static boolean isValidateCustomerCode(String customerCode) {
+    public static boolean isValidateCustomerCode(String customerCode, List<Customer> customers) {
         String regex = "^[CGK]\\d{4}$";
         if(!customerCode.matches(regex)) {
             return false;
         }
+
+        for (Customer c:customers){
+            if(c.getCustomerCode().equals(customerCode)){
+                return false;
+            }
+        }
+
         return true;
     }
 
@@ -19,7 +30,7 @@ public class Validations {
     }
 
     public static boolean isValidatePhone(String customerPhone) {
-        String regex = "^(0?)(3[2-9]|5[689]|7(?:0|[6-9])|8[1-9]|9\\\\d)\\\\d{7}$";
+        String regex = "^(03[2-9]|05[6|8|9]|07[0|6-9]|08[1-5|8|9]|09[0-9])\\d{7}$";
         if(!customerPhone.matches(regex)) {
             return false;
         }
@@ -27,7 +38,7 @@ public class Validations {
     }
 
     public static boolean isValidateEmail(String customerEmail) {
-        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$\n";
+        String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         if(!customerEmail.matches(regex)) {
             return false;
         }
