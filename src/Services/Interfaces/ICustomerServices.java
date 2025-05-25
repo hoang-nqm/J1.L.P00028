@@ -6,4 +6,5 @@ public interface ICustomerServices {
     void updateCustomer();
     void searchCustomerByName();
     void displayCustomer();
+    void saveCustomerToFile();
 }

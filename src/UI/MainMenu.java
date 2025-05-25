@@ -1,22 +1,28 @@
 package UI;
 
 import Services.Implements.CustomersServices;
+import Services.Implements.MenuService;
+import Services.Implements.OrderService;
 import Services.Interfaces.ICustomerServices;
+import Services.Interfaces.IMenuService;
+import Services.Interfaces.IOrderService;
 import Utils.Input;
 
 public class MainMenu {
 
     ICustomerServices customerServices;
+    IMenuService menuServices;
+    IOrderService orderService;
 
     public MainMenu() {
-        customerServices=new CustomersServices();
+        customerServices = new CustomersServices();
+        menuServices = new MenuService();
+        orderService =new OrderService();
     }
 
     public void mainMenu() {
         int choice;
         do {
-
-            System.out.println("---------------------------------");
             System.out.println("Welcome to the main menu");
             System.out.println("Please select one of the following options:");
             System.out.println("1. Register Customer");
@@ -33,35 +39,37 @@ public class MainMenu {
             choice = input.inputMenuChoice();
 
 
-            switch (choice){
+            switch (choice) {
                 case 1:
-                   customerServices.registerCustomer();
+                    customerServices.registerCustomer();
                     break;
-                    case 2:
-                        System.out.println("Update Customer Information");
-                        break;
-                        case 3:
-                            System.out.println("Search Customer");
-                            break;
-                            case 4:
-                                System.out.println("Display Feats Menu");
-                                break;
-                                case 5:
-                                    System.out.println("Display Feats Orders");
-                                    break;
-                                    case 6:
-                                        System.out.println("Update order information");
-                                        break;
-                                        case 7:
-                                            System.out.println("Save data to file");
-                                            break;
-                                            case 8:
-                                               customerServices.displayCustomer();
-                                                break;
-                                                default:
-                                                    System.out.println("Goodbye!!!");
+                case 2:
+                    customerServices.updateCustomer();
+                    break;
+                case 3:
+                    System.out.println("Search Customer");
+                    break;
+                case 4:
+                    menuServices.displayMenu();
+                    break;
+                case 5:
+                    orderService.placeOrder();
+                    break;
+                case 6:
+                    System.out.println("Update order information");
+                    break;
+                case 7:
+                    customerServices.saveCustomerToFile();
+                    orderService.saveOrderToFile();
+                    break;
+                case 8:
+                    customerServices.displayCustomer();
+                    orderService.displayOrder();
+                    break;
+                default:
+                    System.out.println("Goodbye!!!");
             }
-        }while(choice>=1 && choice<=8);
+        } while (choice >= 1 && choice <= 8);
 
     }
 }
