@@ -14,7 +14,7 @@ import java.util.List;
 
 public class CustomersServices implements ICustomerServices {
 
-    List<Customer> listCustomers;
+    private List<Customer> listCustomers;
 
     public CustomersServices() {
         listCustomers = FileUltils.loadCustomersFromFile(customerFilePath);
@@ -186,14 +186,18 @@ public class CustomersServices implements ICustomerServices {
     @Override
     public void displayCustomer() {
 
-        System.out.println("Customer Information:");
-        System.out.println("---------------------------------------------------------------");
-        System.out.printf("%-8s | %-20s | %-20s | %-20s \n", "Code", "Customer Name", "Phone", "Email");
-        System.out.println("---------------------------------------------------------------");
-        for (Customer customer : listCustomers) {
-            System.out.printf("%-8s | %-20s | %-20s | %-20s \n", customer.getCustomerCode(), customer.getName(), customer.getPhoneNumber(), customer.getEmail());
-        }
-        System.out.println("---------------------------------------------------------------");
+      if(listCustomers.isEmpty()) {
+          System.out.println("No Customers ");
+      }else{
+          System.out.println("Customer Information:");
+          System.out.println("---------------------------------------------------------------");
+          System.out.printf("%-8s | %-20s | %-20s | %-20s \n", "Code", "Customer Name", "Phone", "Email");
+          System.out.println("---------------------------------------------------------------");
+          for (Customer customer : listCustomers) {
+              System.out.printf("%-8s | %-20s | %-20s | %-20s \n", customer.getCustomerCode(), customer.getName(), customer.getPhoneNumber(), customer.getEmail());
+          }
+          System.out.println("---------------------------------------------------------------");
+      }
     }
 
     @Override

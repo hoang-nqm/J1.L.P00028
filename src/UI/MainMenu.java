@@ -1,15 +1,23 @@
 package UI;
 
 import Services.Implements.CustomersServices;
+import Services.Implements.MenuServices;
+import Services.Implements.OrderServices;
 import Services.Interfaces.ICustomerServices;
+import Services.Interfaces.IMenuServices;
+import Services.Interfaces.IOrderServices;
 import Utils.Input;
 
 public class MainMenu {
 
     ICustomerServices customerServices;
+    IMenuServices menuServices;
+    IOrderServices orderServices;
 
     public MainMenu() {
         customerServices = new CustomersServices();
+        menuServices = new MenuServices();
+        orderServices = new OrderServices();
     }
 
     public void mainMenu() {
@@ -21,7 +29,7 @@ public class MainMenu {
             System.out.println("2. Update Customer Information");
             System.out.println("3. Search Customer");
             System.out.println("4. Display Feats Menu");
-            System.out.println("5. Display Feats Orders");
+            System.out.println("5. Place Order");
             System.out.println("6. Update order information");
             System.out.println("7. Save data to file");
             System.out.println("8. Display Customer or Orders Lists");
@@ -42,19 +50,21 @@ public class MainMenu {
                    customerServices.searchCustomerByName();
                     break;
                 case 4:
-                    System.out.println("Display Feats Menu");
+                  menuServices.displayMenu();
                     break;
                 case 5:
-                    System.out.println("Display Feats Orders");
+                    orderServices.placeOrder();
                     break;
                 case 6:
                     System.out.println("Update order information");
                     break;
                 case 7:
                     customerServices.saveCustomerToFile();
+                    orderServices.saveOrderToFile();
                     break;
                 case 8:
                     customerServices.displayCustomer();
+                    orderServices.displayOrder();
                     break;
                 default:
                     System.out.println("Goodbye!!!");

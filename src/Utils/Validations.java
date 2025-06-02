@@ -1,7 +1,10 @@
 package Utils;
 
 import Model.Customer;
+import Model.SetMenu;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Validations {
@@ -14,6 +17,21 @@ public class Validations {
 
         for (Customer c:customers){
             if(c.getCustomerCode().equals(customerCode)){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static boolean isValidateCustomerCodeOrder(String customerCode, List<Customer> customers) {
+        String regex = "^[CGK]\\d{4}$";
+        if(!customerCode.matches(regex)) {
+            return false;
+        }
+
+        for (Customer c:customers){
+            if(!c.getCustomerCode().equals(customerCode)){
                 return false;
             }
         }
@@ -45,4 +63,50 @@ public class Validations {
         return true;
 
     }
+
+    public static boolean isValidateMenuCode(String menuCode , List<SetMenu> setMenus) {
+        for (SetMenu setMenu:setMenus){
+            if(setMenu.getCode().equals(menuCode)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isValidNumber(int number ) {
+        return number > 0;
+    }
+// 26/5  25/5
+    public static boolean isValidDate(String date) {
+       try {
+           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+           LocalDate localDate = LocalDate.parse(date, formatter);
+           LocalDate today = LocalDate.now();
+           Boolean check = localDate.isAfter(today);
+           if(check==true) {
+               return true;
+           }
+       }catch (Exception e) {
+           e.printStackTrace();
+       }
+       return false;
+    }
+     public static Customer getCustomerByCustomerCode(String customerCode, List<Customer> customers) {
+      for (Customer c:customers){
+         if(c.getCustomerCode().equals(customerCode)){
+             return c;
+         }
+      }
+      return null;
+     }
+    public static SetMenu getSetMenuBySetMenuCode(String menuCode, List<SetMenu> setMenus) {
+        for (SetMenu setMenu:setMenus){
+            if(setMenu.getCode().equals(menuCode)){
+                return setMenu;
+            }
+        }
+        return null;
+    }
+
+
 }
